@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Valeto</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_text_1">Slots</string>
+    <string name="tab_text_2">Booked</string>
+    <string name="tab_text_3">Customer Details</string>
+    <string name="err_msg_phone">Enter a valid Phone Number!!</string>
+    <string name="err_msg_email">Enter a valid Email ID!!</string>
+    <string name="err_msg_car">Enter a valid Car Number!!</string>
+</resources>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "380656537425",
+    "firebase_url": "https://valeto-4cdc3.firebaseio.com",
+    "project_id": "valeto-4cdc3",
+    "storage_bucket": "valeto-4cdc3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380656537425:android:dde37e0beee8f66a",
+        "android_client_info": {
+          "package_name": "lekhicomp.com.valeto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "380656537425-v7hq6me94mlh3juoapse5o0061ru98qe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArKYsin0Gs80LdZ2xzJCasYtiDlcazGKc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
