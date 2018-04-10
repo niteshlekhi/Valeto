@@ -25,8 +25,8 @@
             android:gravity="center_horizontal"
             android:padding="10dp"
             android:text="SLOTS"
-            android:textColor="@color/colorAccent"
-            android:textSize="30dp"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="40dp"
             android:textStyle="bold">
 
         </TextView>
@@ -34,6 +34,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="horizontal">
 
             <info.hoang8f.widget.FButton
@@ -49,7 +50,7 @@
                 android:id="@+id/gridButtonDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="30dp"
                 android:backgroundTint="@color/fbutton_color_carrot"
                 android:padding="10dp"
                 android:text="DELETE SLOT"
@@ -63,45 +64,34 @@
             android:layout_height="4dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:background="@color/colorPrimary" />
+            android:background="@color/primaryColor" />
 
-        <!--        <info.hoang8f.widget.FButton
-                    android:id="@+id/gridButton"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_below="@+id/gridButtonDelete"
-                    android:text="1" />-->
 
-        <!--        <GridView
-            android:id="@+id/gridView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/gridButtonDelete"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="50dp"
-            android:columnWidth="90dp"
-            android:gravity="center"
-            android:horizontalSpacing="10dp"
-            android:numColumns="3"
-            android:padding="16dp"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp">
-
-        </GridView>-->
-
-        <Spinner
+        <fr.ganfra.materialspinner.MaterialSpinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_marginTop="60dp"
-            android:spinnerMode="dropdown"
-            android:theme="@style/ThemeOverlay.AppCompat.Light"
-            android:popupBackground="@color/fbutton_color_green_sea"
-            android:background="@color/fbutton_color_silver"
-            android:foregroundTint="@color/fbutton_color_pumpkin"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:gravity="center_horizontal"
-            android:padding="16dp"></Spinner>
+            android:padding="18dp"
+            android:textAlignment="gravity"
+            app:ms_alignLabels="false"
+            app:ms_arrowColor="@android:color/black"
+            app:ms_arrowSize="16dp"
+            app:ms_baseColor="@color/primaryDarkColor"
+            app:ms_dropDownHintView="@layout/support_simple_spinner_dropdown_item"
+            app:ms_enableErrorLabel="false"
+            app:ms_enableFloatingLabel="false"
+            app:ms_floatingLabelColor="@android:color/black"
+            app:ms_floatingLabelText="floating label"
+            app:ms_highlightColor="@color/fbutton_color_carrot"
+            app:ms_multiline="false"
+            android:foregroundTint="@color/primaryDarkColor"
+            app:ms_thickness="2dp">
+
+        </fr.ganfra.materialspinner.MaterialSpinner>
 
         <info.hoang8f.widget.FButton
             android:id="@+id/buttonBook"
@@ -111,7 +101,7 @@
             android:layout_marginTop="40dp"
             android:backgroundTint="@color/fbutton_color_amethyst"
             android:padding="16dp"
-            android:text="BOOK SLOT"
+            android:text="SUBMIT"
             android:textSize="20dp"
             android:textStyle="bold" />
 

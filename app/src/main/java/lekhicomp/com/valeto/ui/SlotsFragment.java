@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,16 @@ import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+import fr.ganfra.materialspinner.MaterialSpinner;
 import info.hoang8f.widget.FButton;
 import lekhicomp.com.valeto.R;
 
@@ -24,12 +35,15 @@ import lekhicomp.com.valeto.R;
 public class SlotsFragment extends Fragment implements View.OnClickListener {
     GridView gridView;
     FButton btnAdd, btnDelete, btnBook;
-    Spinner spinner;
+    MaterialSpinner spinner;
+    ArrayList<Integer> keys;
     public int n = 10;
     public int slot_no = 1;
     ArrayAdapter adapter;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
+
+    private DatabaseReference dbRef;
     //public ArrayList mButtons = new ArrayList();
 
 
@@ -51,20 +65,29 @@ public class SlotsFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_slots, container, false);
-        // gridView = view.findViewById(R.id.gridView1);
         spinner = view.findViewById(R.id.spinner);
+        dbRef = FirebaseDatabase.getInstance().getReference();
 
-        //FButton cb = null;
+        keys = new ArrayList();
 
-           /* for (int i =0; i<10; i++) {
-                cb = new FButton(getContext());
-                cb.setText(Integer.toString(i+1));
-                cb.setButtonColor(R.color.fbutton_color_peter_river);
-                //cb.setOnClickListener(this);
-                cb.setId(i+1);
-                mButtons.add(cb);
-            }
-*/
+        dbRef.child("slots").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    int i = 0;
+                    for (DataSnapshot d : dataSnapshot.getChildren()) {
+                        keys.add(Integer.parseInt(d.getKey()));
+                        Log.i("keys Array", "keys:" + keys);
+                        i++;
+                    }
+                }
+            }//onDataChange
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }//onCancelled
+        });
 
         btnAdd = view.findViewById(R.id.gridButtonAdd);
         btnDelete = view.findViewById(R.id.gridButtonDelete);
@@ -87,10 +110,19 @@ public class SlotsFragment extends Fragment implements View.OnClickListener {
     }
 
     public void refreshSlots(int n) {
+
         adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item);
         adapter.add("---Please Select a SLOT---");
-        for (int i = 1; i <= n; i++)
-            adapter.add("SLOT  " + i);
+
+        for (int i = 1; i <= n; i++) {
+            int[] tmpSlot = new int[keys.size()];
+            for (int j = 0; j < keys.size(); j++)
+                tmpSlot[j] = keys.get(j);
+            if (tmpSlot.equals(i)) {
+                continue;
+            } else
+                adapter.add("SLOT  " + i);
+        }
 
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

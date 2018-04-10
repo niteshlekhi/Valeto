@@ -1,6 +1,7 @@
 package lekhicomp.com.valeto.ui;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,18 +78,22 @@ public class BookSlotDetails extends AppCompatActivity implements View.OnClickLi
     private boolean validatePhone() {
         if (txtPhone.getText().toString().trim().isEmpty()) {
             tilPhone.setError(getString(R.string.err_msg_phone));
+            txtPhone.setBackgroundResource(R.drawable.edittext_error);
             requestFocus(txtPhone);
             return false;
         }
         if (txtPhone.getText().toString().trim().length() > 12 || txtPhone.getText().toString().trim().length() < 10) {
             tilPhone.setError(getString(R.string.err_msg_phone));
+            txtPhone.setBackgroundResource(R.drawable.edittext_error);
             requestFocus(txtPhone);
             return false;
         }
         if (txtPhone.getText().toString().matches("[0-9]+")) {
             tilPhone.setErrorEnabled(false);
+            txtPhone.setBackgroundResource(R.drawable.edittext_style);
         } else {
             tilPhone.setError(getString(R.string.err_msg_phone));
+            txtPhone.setBackgroundResource(R.drawable.edittext_error);
             requestFocus(txtPhone);
             return false;
 
@@ -101,10 +107,12 @@ public class BookSlotDetails extends AppCompatActivity implements View.OnClickLi
 
         if (!isValidEmail(email)) {
             tilEmail.setError(getString(R.string.err_msg_email));
+            txtEmail.setBackgroundResource(R.drawable.edittext_error);
             requestFocus(txtEmail);
             return false;
         } else {
             tilEmail.setErrorEnabled(false);
+            txtEmail.setBackgroundResource(R.drawable.edittext_style);
         }
 
         return true;
@@ -114,28 +122,45 @@ public class BookSlotDetails extends AppCompatActivity implements View.OnClickLi
         if (txtCar.getText().toString().trim().isEmpty()) {
             tilCar.setError(getString(R.string.err_msg_car));
             requestFocus(txtCar);
+            txtCar.setBackgroundResource(R.drawable.edittext_error);
             return false;
-        } else if(txtCar.getText().toString().trim().length()<4 ||txtCar.getText().toString().trim().length()>10){
+        } else if (txtCar.getText().toString().trim().length() < 4 || txtCar.getText().toString().trim().length() > 10) {
             tilCar.setError(getString(R.string.err_msg_car));
+            txtCar.setBackgroundResource(R.drawable.edittext_error);
             requestFocus(txtCar);
             return false;
-        }
-        else
-            tilCar.setEnabled(false);
+        } else if (txtCar.getText().toString().trim().matches("[A-Z][0-9]+")) {
+            tilCar.setErrorEnabled(false);
+            txtCar.setBackgroundResource(R.drawable.edittext_style);
+        } else {
+            tilCar.setError(getString(R.string.err_msg_car));
+            txtCar.setBackgroundResource(R.drawable.edittext_error);
+            requestFocus(txtCar);
+            return false;
 
+        }
         return true;
     }
 
     private boolean validateAltPhone() {
         if (txtAltPhone.getText().toString().matches("[0-9]+") && txtAltPhone.getText().length() >= 10) {
             tilAltPhone.setErrorEnabled(false);
-        } else {
+            txtAltPhone.setBackgroundResource(R.drawable.edittext_style);
+        }
+        if (txtPhone.getText().toString().length() == 0 && txtAltPhone.getText().toString().length() == 0) {
             tilAltPhone.setError(getString(R.string.err_msg_phone));
+            txtAltPhone.setBackgroundResource(R.drawable.edittext_error);
+            requestFocus(tilAltPhone);
+            return false;
+        }
+        else {
+            tilAltPhone.setError(getString(R.string.err_msg_phone));
+            txtAltPhone.setBackgroundResource(R.drawable.edittext_error);
             requestFocus(tilAltPhone);
             return false;
         }
 
-        return true;
+//        return true;
     }
 
     private static boolean isValidEmail(String email) {
@@ -210,7 +235,6 @@ public class BookSlotDetails extends AppCompatActivity implements View.OnClickLi
             return;
         }
 
-        Toast.makeText(this, "Slot !" + slot_no + " Booked", Toast.LENGTH_LONG).show();
         Bundle bundle = new Bundle();
         bundle.putInt("bundleSlotNo", slot_no);
         bundle.putString("bundlePhone", phone);

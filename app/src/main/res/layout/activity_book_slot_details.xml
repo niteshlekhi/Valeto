@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context="lekhicomp.com.valeto.ui.BookSlotDetails">
 
+    <com.jpardogo.android.googleprogressbar.library.GoogleProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
-            android:padding="18dp"
+            android:padding="16dp"
             android:text="SLOT: "
             android:textColor="@color/fbutton_color_alizarin"
             android:textSize="24dp"
@@ -37,7 +42,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="30dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/edittext_style"
                 android:hint="Enter Phone Number *"
                 android:inputType="phone"
                 android:padding="16dp"
@@ -58,7 +66,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="30dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/edittext_style"
                 android:hint="Enter Car Number *"
                 android:inputType="textCapCharacters"
                 android:maxLines="1"
@@ -71,6 +82,8 @@
             android:id="@+id/layoutName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@color/fbutton_color_alizarin"
             app:hintAnimationEnabled="true"
             app:hintEnabled="true">
 
@@ -79,9 +92,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="30dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/edittext_style"
                 android:hint="Enter Name"
-                android:inputType="textPersonName"
+                android:inputType="textCapCharacters|textPersonName"
                 android:padding="16dp"
                 android:textSize="20dp" />
         </android.support.design.widget.TextInputLayout>
@@ -90,6 +106,8 @@
             android:id="@+id/layoutAltPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@color/fbutton_color_alizarin"
             app:hintAnimationEnabled="true"
             app:hintEnabled="true">
 
@@ -98,7 +116,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="30dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/edittext_style"
                 android:hint="Enter Alternate Phone"
                 android:inputType="phone"
                 android:maxLines="1"
@@ -110,6 +131,8 @@
             android:id="@+id/layoutEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@color/fbutton_color_alizarin"
             app:hintAnimationEnabled="true"
             app:hintEnabled="true">
 
@@ -119,6 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="30dp"
+                android:background="@drawable/edittext_style"
                 android:hint="Enter Email ID"
                 android:inputType="textEmailAddress"
                 android:padding="16dp"
