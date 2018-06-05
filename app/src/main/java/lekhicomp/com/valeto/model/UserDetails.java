@@ -22,6 +22,46 @@ public class UserDetails {
         this.loyaltyPoints = loyaltyPoints;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAlt_phone() {
+        return alt_phone;
+    }
+
+    public void setAlt_phone(String alt_phone) {
+        this.alt_phone = alt_phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getLoyaltyPoints() {
+        return loyaltyPoints;
+    }
+
+    public void setLoyaltyPoints(int loyaltyPoints) {
+        this.loyaltyPoints = loyaltyPoints;
+    }
+
     @Override
     public String toString() {
         return "UserDetails{" +
@@ -32,4 +72,6 @@ public class UserDetails {
                 ", loyaltyPoints=" + loyaltyPoints +
                 '}';
     }
+
+
 }

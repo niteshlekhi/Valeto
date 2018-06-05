@@ -21,6 +21,53 @@ public class SlotDetails {
         this.email = email;
     }
 
+    public int getSlot() {
+        return slot;
+    }
+
+    public void setSlot(int slot) {
+        this.slot = slot;
+    }
+
+    public String getCar_no() {
+        return car_no;
+    }
+
+    public void setCar_no(String car_no) {
+        this.car_no = car_no;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAlt_phone() {
+        return alt_phone;
+    }
+
+    public void setAlt_phone(String alt_phone) {
+        this.alt_phone = alt_phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     @Override
     public String toString() {

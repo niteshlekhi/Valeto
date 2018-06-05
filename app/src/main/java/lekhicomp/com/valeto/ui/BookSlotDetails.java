@@ -1,52 +1,38 @@
 package lekhicomp.com.valeto.ui;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.webkit.WebView;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.Serializable;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import info.hoang8f.widget.FButton;
 import lekhicomp.com.valeto.R;
-import lekhicomp.com.valeto.model.SlotDetails;
 
-public class BookSlotDetails extends AppCompatActivity implements View.OnClickListener {
-    @BindView(R.id.textSlot)
-    TextView txtSlot;
-    @BindView(R.id.layoutPhone)
+public class BookSlotDetails extends Fragment {
+
+    //TextView txtSlot;
+
     TextInputLayout tilPhone;
-    @BindView(R.id.layoutCar)
     TextInputLayout tilCar;
-    @BindView(R.id.layoutName)
     TextInputLayout tilName;
-    @BindView(R.id.layoutEmail)
     TextInputLayout tilEmail;
-    @BindView(R.id.layoutAltPhone)
     TextInputLayout tilAltPhone;
 
-    @BindView(R.id.textPhone)
     EditText txtPhone;
-    @BindView(R.id.textCar)
     EditText txtCar;
-    @BindView(R.id.textName)
     EditText txtName;
-    @BindView(R.id.textEmail)
     EditText txtEmail;
-    @BindView(R.id.textAltPhone)
     EditText txtAltPhone;
-    @BindView(R.id.bookSlot)
+
     FButton btnBookSlot;
 
     int slot_no;
@@ -56,26 +42,54 @@ public class BookSlotDetails extends AppCompatActivity implements View.OnClickLi
     String alt_phone = "";
     String email = "";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_slot_details);
-        ButterKnife.bind(this);
 
-        Intent rcv = getIntent();
-        slot_no = rcv.getIntExtra("slotNo", 1);
-        txtSlot.append(String.valueOf(slot_no));
-        btnBookSlot.setOnClickListener(this);
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_book_slot_details, container, false);
+        initViews(view);
+        btnBookSlot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                car_no = txtCar.getText().toString().trim();
+                phone = txtPhone.getText().toString().trim();
+                name = txtName.getText().toString().trim();
+                alt_phone = txtAltPhone.getText().toString().trim();
+                email = txtEmail.getText().toString().trim();
+
+                if (car_no.isEmpty() || phone.isEmpty())
+                    Toast.makeText(getActivity(), "Enter mandatory fields!!", Toast.LENGTH_LONG).show();
+                else
+                    submitForm();
+            }
+        });
         txtPhone.addTextChangedListener(new MyTextWatcher(txtPhone));
         txtCar.addTextChangedListener(new MyTextWatcher(txtCar));
         txtEmail.addTextChangedListener(new MyTextWatcher(txtEmail));
         txtPhone.addTextChangedListener(new MyTextWatcher(txtPhone));
         txtAltPhone.addTextChangedListener(new MyTextWatcher(txtAltPhone));
-
+        return view;
     }
 
+    public void initViews(View view) {
+        btnBookSlot = view.findViewById(R.id.bookSlot);
+
+        //txtSlot = view.findViewById(R.id.textSlot);
+        tilPhone = view.findViewById(R.id.layoutPhone);
+        tilCar = view.findViewById(R.id.layoutCar);
+        tilName = view.findViewById(R.id.layoutName);
+        tilEmail = view.findViewById(R.id.layoutEmail);
+        tilAltPhone = view.findViewById(R.id.layoutAltPhone);
+
+        txtPhone = view.findViewById(R.id.textPhone);
+        txtCar = view.findViewById(R.id.textCar);
+        txtName = view.findViewById(R.id.textName);
+        txtEmail = view.findViewById(R.id.textEmail);
+        txtAltPhone = view.findViewById(R.id.textAltPhone);
+    }
 
     private boolean validatePhone() {
+        txtPhone.setBackgroundResource(R.drawable.edittext_style);
         if (txtPhone.getText().toString().trim().isEmpty()) {
             tilPhone.setError(getString(R.string.err_msg_phone));
             txtPhone.setBackgroundResource(R.drawable.edittext_error);
@@ -98,11 +112,11 @@ public class BookSlotDetails extends AppCompatActivity implements View.OnClickLi
             return false;
 
         }
-
         return true;
     }
 
     private boolean validateEmail() {
+        txtEmail.setBackgroundResource(R.drawable.edittext_style);
         String email = txtEmail.getText().toString().trim();
 
         if (!isValidEmail(email)) {
@@ -119,48 +133,52 @@ public class BookSlotDetails extends AppCompatActivity implements View.OnClickLi
     }
 
     private boolean validateCarNumber() {
+        txtCar.setBackgroundResource(R.drawable.edittext_style);
         if (txtCar.getText().toString().trim().isEmpty()) {
             tilCar.setError(getString(R.string.err_msg_car));
             requestFocus(txtCar);
             txtCar.setBackgroundResource(R.drawable.edittext_error);
             return false;
-        } else if (txtCar.getText().toString().trim().length() < 4 || txtCar.getText().toString().trim().length() > 10) {
+        } else if (txtCar.getText().toString().trim().length() < 4){// || txtCar.getText().toString().trim().length() > 10) {
             tilCar.setError(getString(R.string.err_msg_car));
             txtCar.setBackgroundResource(R.drawable.edittext_error);
             requestFocus(txtCar);
             return false;
-        } else if (txtCar.getText().toString().trim().matches("[A-Z][0-9]+")) {
+        } /*else if (txtCar.getText().toString().trim().matches("[A-Z][0-9]+")) {
             tilCar.setErrorEnabled(false);
             txtCar.setBackgroundResource(R.drawable.edittext_style);
-        } else {
-            tilCar.setError(getString(R.string.err_msg_car));
+        }*/ else {
+            /*tilCar.setError(getString(R.string.err_msg_car));
             txtCar.setBackgroundResource(R.drawable.edittext_error);
             requestFocus(txtCar);
-            return false;
-
+            return false;*/
+            tilCar.setErrorEnabled(false);
+            txtCar.setBackgroundResource(R.drawable.edittext_style);
         }
         return true;
     }
 
     private boolean validateAltPhone() {
-        if (txtAltPhone.getText().toString().matches("[0-9]+") && txtAltPhone.getText().length() >= 10) {
-            tilAltPhone.setErrorEnabled(false);
-            txtAltPhone.setBackgroundResource(R.drawable.edittext_style);
-        }
+        txtAltPhone.setBackgroundResource(R.drawable.edittext_style);
+
         if (txtPhone.getText().toString().length() == 0 && txtAltPhone.getText().toString().length() == 0) {
             tilAltPhone.setError(getString(R.string.err_msg_phone));
             txtAltPhone.setBackgroundResource(R.drawable.edittext_error);
             requestFocus(tilAltPhone);
             return false;
-        }
-        else {
-            tilAltPhone.setError(getString(R.string.err_msg_phone));
-            txtAltPhone.setBackgroundResource(R.drawable.edittext_error);
-            requestFocus(tilAltPhone);
-            return false;
-        }
+        } else {
 
-//        return true;
+            if (txtAltPhone.getText().toString().matches("[0-9]+") && txtAltPhone.getText().length() >= 10 && txtAltPhone.getText().length() <= 12) {
+                tilAltPhone.setErrorEnabled(false);
+                txtAltPhone.setBackgroundResource(R.drawable.edittext_style);
+                return true;
+            } else {
+                tilAltPhone.setError(getString(R.string.err_msg_phone));
+                txtAltPhone.setBackgroundResource(R.drawable.edittext_error);
+                requestFocus(tilAltPhone);
+                return false;
+            }
+        }
     }
 
     private static boolean isValidEmail(String email) {
@@ -172,9 +190,10 @@ public class BookSlotDetails extends AppCompatActivity implements View.OnClickLi
 
     private void requestFocus(View view) {
         if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
+
 
     private class MyTextWatcher implements TextWatcher {
 
@@ -208,19 +227,6 @@ public class BookSlotDetails extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    @Override
-    public void onClick(View view) {
-        car_no = txtCar.getText().toString().trim();
-        phone = txtPhone.getText().toString().trim();
-        name = txtName.getText().toString().trim();
-        alt_phone = txtAltPhone.getText().toString().trim();
-        email = txtEmail.getText().toString().trim();
-
-        if (car_no.isEmpty() || phone.isEmpty())
-            Toast.makeText(this, "Enter mandatory fields!!", Toast.LENGTH_LONG).show();
-        else
-            submitForm();
-    }
 
     private void submitForm() {
         if (!validatePhone()) {
@@ -234,7 +240,6 @@ public class BookSlotDetails extends AppCompatActivity implements View.OnClickLi
         if (!validateCarNumber()) {
             return;
         }
-
         Bundle bundle = new Bundle();
         bundle.putInt("bundleSlotNo", slot_no);
         bundle.putString("bundlePhone", phone);
@@ -243,7 +248,7 @@ public class BookSlotDetails extends AppCompatActivity implements View.OnClickLi
         bundle.putString("bundleName", name);
         bundle.putString("bundleEmail", email);
 
-        Intent intent = new Intent(getApplicationContext(), BookSlot.class);
+        Intent intent = new Intent(getActivity(), BookSlot.class);
         intent.putExtras(bundle);
         startActivity(intent);
     }

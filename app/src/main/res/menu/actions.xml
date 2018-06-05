@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/slotOpen"
+        android:title="Open payment page" />
+    <item
+        android:id="@+id/slotDelete"
+        android:title="Delete Slot" />
+
+</menu>
