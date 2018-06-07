@@ -17,6 +17,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import lekhicomp.com.valeto.model.Otp;
 import lekhicomp.com.valeto.model.SlotDetails;
 import lekhicomp.com.valeto.model.UserDetails;
@@ -38,7 +43,6 @@ public class BookSlot extends AppCompatActivity {
 //        setContentView(R.layout.activity_book_slot);
         conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         database = FirebaseDatabase.getInstance();
-       // database.setPersistenceEnabled(true);
         dbref = database.getReference();
         Intent rcvIntent = getIntent();
         Bundle bundle = rcvIntent.getExtras();
@@ -55,7 +59,8 @@ public class BookSlot extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Internet not Available!! Sending OTP...", Toast.LENGTH_LONG).show();
         dbref.child("slots").child(phone).setValue(slotDetails);
         addUser();
-        sendSms();
+        //sendSms();
+        sendEmail();
 
         Toast.makeText(this, "Slot Booked!", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);
@@ -69,6 +74,18 @@ public class BookSlot extends AppCompatActivity {
 
         //Store integer in a string
         otpNo = String.valueOf(randomPIN);
+    }
+
+    private void sendEmail() {
+        if(!email.isEmpty()) {
+            Intent email = new Intent(Intent.ACTION_SEND);
+            email.putExtra(Intent.EXTRA_EMAIL, email);
+            email.putExtra(Intent.EXTRA_TEXT, "Your OTP for Valeto is: "+otpNo);
+            email.putExtra(Intent.EXTRA_SUBJECT, "Valeto");
+            email.setType("message/rfc822");
+            startActivity(Intent.createChooser(email, "Choose an Email client :"));
+        }
+
     }
 
     private void sendSms() {
@@ -101,6 +118,33 @@ public class BookSlot extends AppCompatActivity {
 
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(phone, null, "Your OTP for Valeto is " + otpNo, null, null);
+
+       /* try {
+            // Construct data
+            String apiKey = "apikey=" + "yourapiKey";
+            String message = "&message=" + "This is your message";
+            String sender = "&sender=" + "TXTLCL";
+            String numbers = "&numbers=" + "918123456789";
+
+            // Send data
+            HttpURLConnection conn = (HttpURLConnection) new URL("https://api.textlocal.in/send/?").openConnection();
+            String data = apiKey + numbers + message + sender;
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Length", Integer.toString(data.length()));
+            conn.getOutputStream().write(data.getBytes("UTF-8"));
+            final BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            final StringBuffer stringBuffer = new StringBuffer();
+            String line;
+            while ((line = rd.readLine()) != null) {
+                Toa
+            }
+            rd.close();
+
+
+        } catch (Exception e) {
+
+        }*/
 
     }
 

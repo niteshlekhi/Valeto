@@ -44,6 +44,8 @@
                 android:background="@drawable/edittext_style"
                 android:hint="Enter Phone Number *"
                 android:inputType="phone"
+                android:maxEms="12"
+                android:maxLength="12"
                 android:padding="14dp"
                 android:textSize="20dp" />
         </android.support.design.widget.TextInputLayout>
@@ -124,7 +126,8 @@
                 android:background="@drawable/edittext_style"
                 android:hint="Enter Alternate Phone"
                 android:inputType="phone"
-                android:maxLines="1"
+                android:maxEms="12"
+                android:maxLength="12"
                 android:padding="14dp"
                 android:textSize="20dp" />
         </android.support.design.widget.TextInputLayout>

@@ -47,7 +47,6 @@ public class BookedFragment extends Fragment implements RecyclerView.OnItemTouch
 
 
         db = FirebaseDatabase.getInstance();
-        //db.setPersistenceEnabled(true);
         dbRef = db.getReference().child("slots");
 
 
@@ -90,15 +89,7 @@ public class BookedFragment extends Fragment implements RecyclerView.OnItemTouch
 
     @Override
     public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-       /* Bundle bundle=new Bundle();
-        bundle.putString("bundlePhone", phone);
-        bundle.putString("bundleCar", car_no);
-        bundle.putString("bundleAltPhone", alt_phone);
-        bundle.putString("bundleName", name);
-        bundle.putString("bundleEmail", email);
-        Intent intent=new Intent(getActivity(),PaymentActivity.class);
-        intent.putExtras()
-        startActivity(intent);*/
+
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
@@ -23,6 +24,9 @@ import lekhicomp.com.valeto.ui.BookSlot;
 import lekhicomp.com.valeto.ui.PaymentActivity;
 
 public class BookedAdapter extends FirebaseRecyclerAdapter<SlotDetails, BookedHolder> {
+
+    private PopupMenu menu;
+    private MenuInflater inflater;
 
   /*  public void setRecyclerAdapterClickListener(AdapterView.OnItemClickListener recyclerAdapterClickListener) {
         this.recyclerAdapterClickListener = recyclerAdapterClickListener;
@@ -79,16 +83,35 @@ public class BookedAdapter extends FirebaseRecyclerAdapter<SlotDetails, BookedHo
                 Vibrator vibrator= (Vibrator) v.getContext().getSystemService(Context.VIBRATOR_SERVICE);
                 vibrator.vibrate(40);
 
-                PopupMenu menu=new PopupMenu(v.getContext(),v);
-                MenuInflater inflater= menu.getMenuInflater();
+                menu=new PopupMenu(v.getContext(),v);
+                inflater= menu.getMenuInflater();
                 inflater.inflate(R.menu.actions,menu.getMenu());
                 menu.show();
+
+                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.slotOpen:
+                                //handle menu1 click
+                                return true;
+                            case R.id.slotDelete:
+                                //handle menu2 click
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
 
                 return true;
             }
         });
 
+
+
         return bookedHolder;
     }
+
 }
 

@@ -11,9 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-//import cn.pedant.SweetAlert.SweetAlertDialog;
 import com.google.firebase.database.FirebaseDatabase;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import lekhicomp.com.valeto.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,12 +45,11 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         db.setPersistenceEnabled(true);
 
-
     }
 
     @Override
     public void onBackPressed() {
-        /*final SweetAlertDialog alertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
+        final SweetAlertDialog alertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
         alertDialog.setTitle("Valeto");
         alertDialog.setCustomImage(R.drawable.ic_launcher);
         alertDialog.setContentText("Do you want to Exit?");
@@ -65,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(SweetAlertDialog sweetAlertDialog) {
                 alertDialog.dismissWithAnimation();
             }
-        });*/
-        super.onBackPressed();
+        });
+       // super.onBackPressed();
     }
 
     @Override
@@ -87,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }*/
          if (id == R.id.action_exit) {
-            /*final SweetAlertDialog alertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
+            final SweetAlertDialog alertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
             alertDialog.setTitle("Valeto");
             alertDialog.setCustomImage(R.drawable.ic_launcher);
             alertDialog.setContentText("Do you want to Exit?");
@@ -104,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                     alertDialog.dismissWithAnimation();
                 }
-            });*/
-            super.onBackPressed();
+            });
+            //super.onBackPressed();
         }
 
         return super.onOptionsItemSelected(item);
